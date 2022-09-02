@@ -1,13 +1,11 @@
-# Sample Hardhat Project
+This is a simple crowd funding smart contract.
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+This is the basic idea, I desire to create a decentralized crowd funding smart contract.
 
-Try running some of the following tasks:
+Which eill have an admin who regulated the goal, and the deadline of the crowd funding.
 
-```shell
-npx hardhat help
-npx hardhat test
-GAS_REPORT=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.ts
-```
+There after transfers the sum to the desired rescipient.
+
+The crowd funding has an only owner modifier to ensre that only the admin can start the crowd funding.
+
+So, it's very basic and easy to understand.
