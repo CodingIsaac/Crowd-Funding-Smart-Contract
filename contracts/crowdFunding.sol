@@ -20,12 +20,19 @@ contract crowdFunding {
         _;
     }
 
+    modifier onlyAdmin() {
+        require(msg.sender == admin, "Only admin can start a Crowd Funding");
+        _;
+    }
+
     constructor(uint _fundingGoal, uint _fundingdeadline) {
         goal = _fundingGoal;
         deadline = block.timestamp + _fundingdeadline;
         admin = msg.sender;
         minimumContribution = 0.2 ether;
     }
+
+    
 
 
 

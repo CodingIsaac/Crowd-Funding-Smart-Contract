@@ -2,7 +2,7 @@ This is a simple crowd funding smart contract.
 
 This is the basic idea, I desire to create a decentralized crowd funding smart contract.
 
-Which eill have an admin who regulated the goal, and the deadline of the crowd funding.
+Which will have an admin who regulates the goal of the crowd funding, and the deadline of the crowd funding.
 
 There after transfers the sum to the desired rescipient.
 
