@@ -23,6 +23,11 @@ contract crowdFunding {
     mapping (uint => spendingRequest) public requests;
     uint public numRequests;
 
+    // Ease in interacting with the front end. 
+    event CrowdFundingContribution (address _spender, uint _value);
+    event CreatSpendingRequest(string _description, address _recipient, uint _value);
+    event Transfer(address _recipient, uint _value);
+
 
     //  A modifier to determine the timestamp of the crowd funding
 
@@ -91,6 +96,8 @@ contract crowdFunding {
         fundingContributors[msg.sender] += msg.value;
         return fundingRaisedAmount += msg.value;
 
+        emit CrowdFundingContribution(msg.sender, msg.value);
+
     }
 
     function getBalance() public view onlyAdmin returns(uint) {
@@ -113,6 +120,8 @@ contract crowdFunding {
         newRequest.completed = false;
         newRequest.numberofVoters = 0;
 
+        emit CreatSpendingRequest(_description, _recipient, _value);
+
     }
 
     function voteRequest(uint _requestNumber) public votingRight {
@@ -130,7 +139,9 @@ contract crowdFunding {
         require(thisRequest.numberofVoters > noOfContributors / 2, "Number of Contributors not Reached" );
         thisRequest.fundingrecipient.transfer(thisRequest.value);
         thisRequest.completed = true;
-        
+
+        emit Transfer( thisRequest.fundingrecipient, thisRequest.value);
+
 
         
     }
