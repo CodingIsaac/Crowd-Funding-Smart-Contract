@@ -7,7 +7,8 @@ contract crowdFunding {
     uint public noOfContributors;
     uint public minimumContribution;
     uint public deadline;
-    uint public goal;
+    uint public fundingCap;
+    string public goal;
     uint public fundingRaisedAmount;
 
     modifier crowdFundingPeriod() {
@@ -24,15 +25,40 @@ contract crowdFunding {
         require(msg.sender == admin, "Only admin can start a Crowd Funding");
         _;
     }
+    modifier fundingcapExceeded() {
+        require ( fundingCap >= fundingRaisedAmount , "Amount for Crowd Funding Exceeded");
+        _;
+    }
 
-    constructor(uint _fundingGoal, uint _fundingdeadline) {
+    receive() external payable {
+        fundingContribute();
+    }
+    fallback() external payable {}
+
+    constructor(string memory _fundingGoal, uint _fundingdeadline) {
         goal = _fundingGoal;
         deadline = block.timestamp + _fundingdeadline;
         admin = msg.sender;
         minimumContribution = 0.2 ether;
+        fundingCap = 4 ether;
+        
     }
 
-    
+    function fundingContribute() public payable crowdFundingPeriod fundingcapExceeded  minContributions returns(uint) {
+        if (fundingContributors[msg.sender] == 0) {
+            noOfContributors++;
+        }
+
+        fundingContributors[msg.sender] += msg.value;
+        return fundingRaisedAmount += msg.value;
+
+    }
+
+    function getBalance() public view onlyAdmin returns(uint) {
+        return address(this).balance;
+    }
+
+
 
 
 
